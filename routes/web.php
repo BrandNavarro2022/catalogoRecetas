@@ -13,6 +13,11 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+Auth::routes();
+
+Route::get('/', [App\Http\Controllers\HomeController::class, 'index'])->name('landing');
+Route::get('/home', [App\Http\Controllers\HomeController::class, 'home'])->name('home');
+Route::get('/verReceta/{receta}', [App\Http\Controllers\HomeController::class, 'verReceta'])->name('verReceta');
+Route::resource('categorias', App\Http\Controllers\CategoriaController::class)->middleware('auth');
+Route::resource('recetas', App\Http\Controllers\RecetaController::class)->middleware('auth');
+
